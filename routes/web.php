@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ServiceController;
+
+Route::resource('services', ServiceController::class);
 
 Route::get('/', function () {
     return view('welcome');
