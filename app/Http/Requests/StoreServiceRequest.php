@@ -11,7 +11,10 @@ class StoreServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+         // Retorna true si deseas que cualquier usuario
+        // pueda usar este Form Request. Si implementas politicas,
+        // podrías verificar permisos aquí.
+        return true;
     }
 
     /**
