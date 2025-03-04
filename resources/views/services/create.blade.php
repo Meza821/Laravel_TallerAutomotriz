@@ -1,32 +1,57 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            CREAR UN NUEVO SERVICIO
+        </h2>
+    </x-slot>
 
-@section('content')
-    <h1>Crear servicio</h1>
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
+        <!-- Mensajes de error -->
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        <!-- Formulario -->
+        <form action="{{ route('services.store') }}" method="POST">
+            @csrf
 
-    <form action="{{ route('services.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" name="nombre" class="form-control" value="{{ old('nombre') }}">
-        </div>
-        <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripción</label>
-            <textarea name="descripcion" class="form-control">{{ old('descripcion') }}</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="precio" class="form-label">Precio</label>
-            <input type="number" step="0.01" name="precio" class="form-control" value="{{ old('precio') }}">
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-@endsection
+            <!-- Campo: Nombre del servicio -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Nombre del Servicio</label>
+                <input type="text" name="nombre" value="{{ old('nombre') }}"
+                    class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300"
+                    placeholder="Ej. Mantenimiento de motor" required>
+            </div>
+
+            <!-- Campo: Descripción -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Descripción</label>
+                <textarea name="descripcion" rows="4"
+                    class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300"
+                    placeholder="Ej. Cambio de aceite, ajuste de frenos..." required>{{ old('descripcion') }}</textarea>
+            </div>
+
+            <!-- Campo: Precio -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Precio ($)</label>
+                <input type="number" name="precio" value="{{ old('precio') }}" step="0.01"
+                    class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300"
+                    placeholder="Ej. 30.00" required>
+            </div>
+
+            <!-- Botón de enviar -->
+            <div class="flex justify-end">
+                <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                    Guardar Servicio
+                </button>
+            </div>
+        </form>
+    </div>
+</x-app-layout>

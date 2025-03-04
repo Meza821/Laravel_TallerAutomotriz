@@ -25,7 +25,20 @@ class StoreServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre'=>'required|string|max:100',
+            'descripcion'=>'required|string',
+            'precio'=> 'required|numeric|min:0',
         ];
+    }
+
+    public function messages(){
+        return[
+            'nombre.required' => 'El nombre del servicio es obligatorio.',
+            'nombre.max' => 'El nombre no puede superar los 100 caracteres',
+            'precio.required' => 'El precio es obligatorio.',
+            'precio.numeric' => 'No se permiten caracteres especiales, solo números.',
+            'precio.min' => 'El precio no puede ser negativo',
+        ];        
+
     }
 }

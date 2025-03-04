@@ -1,13 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Servicios
+            LISTA DE TODOS LOS SERVICIOS.
         </h2>
     </x-slot>
 
     <div class="container mx-auto px-4">
-        <!-- 1. Título principal -->
-        <h1 class="text-2xl font-semibold mb-4">Listado de servicios</h1>
+      
 
         <!-- 2. Mensajes de éxito -->
         @if(session('success'))
@@ -18,16 +17,7 @@
             </div>
         @endif
 
-        <!-- 3. Botón "Crear servicio" -->
-        <!-- inline-block para que respete ancho/alto; bg-blue-500 para fondo azul -->
-        <!-- hover:bg-blue-600 para cambiar a un azul más oscuro al pasar el mouse -->
-        <!-- text-white para texto blanco; font-bold para texto en negrita -->
-        <!-- py-2 px-4 para padding vertical y horizontal; rounded para esquinas curvas -->
-        <!-- mb-4 para un pequeño margen abajo -->
-        <a href="{{ route('services.create') }}"
-            class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4">
-            Crear servicio
-        </a>
+     
 
         <!-- 4. Tabla -->
         <!-- min-w-full fuerza a la tabla a usar todo el ancho mínimo posible -->

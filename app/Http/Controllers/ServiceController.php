@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\StoreServiceRequest;
 class ServiceController extends Controller
 {
     /**
@@ -27,18 +27,14 @@ class ServiceController extends Controller
     /**
      * Guardar un servicio recién creado.
      */
-    public function store(Request $request)
+    public function store(StoreServiceRequest  $request)
     {
-        //Validar los datos
+        //Ya se validaron los datos con el metodo StoreServiceRequest :p
 
-        $request->validate([
-            'nombre' => 'required|string|max:100',
-            'descripcion' => 'nullable|string',
-            'precio' => 'required|numeric|min:0',
-        ]);
+       
 
-        //Crear el servicio
-        Service::create($request->all());
+        
+        Service::create($request->validated());
 
         //Redireccionar con mensaje
         return redirect()->route('services.index')
