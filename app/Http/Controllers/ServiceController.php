@@ -31,25 +31,25 @@ class ServiceController extends Controller
     {
         //Ya se validaron los datos con el metodo StoreServiceRequest :p
 
-       
 
-        
+
+
         Service::create($request->validated());
 
         //Redireccionar con mensaje
         return redirect()->route('services.index')
-            ->with('sucess', 'servicio creado correctamente');
+            ->with('success', 'servicio creado correctamente');
 
     }
 
     /**
      * Mostrar un servicio en específico (opcional).
      */
-    public function show(string $id)
-    {
-        $service = Service::find0rFail($id);
-        return view('services.show', compact('service'));
-    }
+    // public function show(string $id)
+    // {
+    //     $service = Service::find0rFail($id);
+    //     return view('services.show', compact('service'));
+    // }
 
     /**
      * Mostrar el formulario para editar un servicio.
@@ -90,8 +90,8 @@ class ServiceController extends Controller
         $service->delete();
 
         return redirect()->route('services.index')
-                         ->with('sucess', 'Servicio eliminado correctamente');   
+                         ->with('sucess', 'Servicio eliminado correctamente');
     }
 
-    
+
 }
