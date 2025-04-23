@@ -19,7 +19,7 @@
         <!-- Formulario -->
         <form action="{{ route('services.update', $service->id) }}" method="POST">
             @csrf
-            @method('PUT')
+            @method('PATCH')
             <!-- Campo: Descripción -->
             <div class="mb-4">
                 <label for="nombre" class="block text-gray-700 font-semibold mb-2">Nombre del servicio</label>

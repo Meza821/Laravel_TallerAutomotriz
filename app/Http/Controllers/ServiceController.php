@@ -27,12 +27,9 @@ class ServiceController extends Controller
     /**
      * Guardar un servicio recién creado.
      */
-    public function store(StoreServiceRequest  $request)
+    public function store(StoreServiceRequest $request)
     {
         //Ya se validaron los datos con el metodo StoreServiceRequest :p
-
-
-
 
         Service::create($request->validated());
 
@@ -90,7 +87,7 @@ class ServiceController extends Controller
         $service->delete();
 
         return redirect()->route('services.index')
-                         ->with('sucess', 'Servicio eliminado correctamente');
+            ->with('sucess', 'Servicio eliminado correctamente');
     }
 
 
