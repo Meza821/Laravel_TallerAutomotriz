@@ -33,6 +33,7 @@
                     <th class="py-2 px-4 border-b">Tipo persona</th>
                     <th class="py-2 px-4 border-b">Dirección</th>
                     <th class="py-2 px-4 border-b">Departamento</th>
+                    <th class="py-2 px-4 border-b">Municipio</th>
                     <th class="py-2 px-4 border-b">Número de registro</th>
                     <th class="py-2 px-4 border-b">NIT</th>
                     <th class="py-2 px-4 border-b">DUI</th>
@@ -52,6 +53,7 @@
                         <td class="py-2 px-4 border-b">{{ $cliente->tipo_persona }}</td>
                         <td class="py-2 px-4 border-b">{{ $cliente->direccion }}</td>
                         <td class="py-2 px-4 border-b">{{ $cliente->departamento }}</td>
+                        <td class="py-2 px-4 border-b">{{ $cliente->municipio }}</td>
                         <td class="py-2 px-4 border-b">{{ $cliente->numero_registro }}</td>
                         <td class="py-2 px-4 border-b">{{ $cliente->nit }}</td>
                         <td class="py-2 px-4 border-b">{{ $cliente->dui }}</td>
@@ -99,4 +101,8 @@
             {{ $clientes->links() }}
         </div>
     </div>
+    <script>
+
+    </script>
+        // Aquí puedes agregar cualquier script adicional que necesites
 </x-app-layout>

@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Departamento;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Distrito;
 
 class Clientes extends Model
 
@@ -17,6 +21,7 @@ class Clientes extends Model
         'nombre',
         'tipo_persona',
         'direccion',
+        'municipio',
         'departamento',
         'numero_registro',
         'nit',
@@ -26,26 +31,10 @@ class Clientes extends Model
         'telefono',
         'email',
     ];
+            public function distrito()
+        {
+            return $this->belongsTo(Distrito::class);
+        }
 
-    // public function getClientes()
-    // {
-    //     return $this->all();
-    // }
-
-    // public function getClienteById($id)
-    // {
-    //     return $this->find($id);
-
-    // }
-
-    // public function facturas()
-    // {
-    //     return $this->hasMany(Facturas::class, 'cliente_id');
-    // }
-
-    // public function motocicletas()
-    // {
-    //     return $this->hasMany(Motocicleta::class, 'cliente_id');
-    // }
 
 }

@@ -13,8 +13,13 @@ class ClienteController extends Controller
      */// Obtener todos los clientes
     public function index()
     {
+        foreach ($clientes as &$cliente) {
+          $cliente['departamento_nombre'] = collect($departamentos)->firstWhere('codigo', $cliente['codigo_departamento'])['nombre'] ?? 'Departamento desconocido';
+          $cliente['municipio_nombre'] = collect($municipios)->firstWhere('codigo', $cliente['codigo_municipio'])['nombre'] ?? 'Municipio desconocido';
+        }
         $clientes = Clientes::orderBy('id', 'desc')->paginate(10);
         return view('cliente.indexCliente', compact('clientes'));
+
     }
 
     /**
@@ -35,6 +40,7 @@ class ClienteController extends Controller
             'tipo_persona' => 'required|string|max:50',
             'direccion' => 'required|string|max:255',
             'departamento' => 'required|string|max:255',
+            'municipio' => 'required|string|max:255',
             'numero_registro' => 'required|string|max:255',
             'nit' => 'required|string|max:255',
             'dui' => 'required|string|max:10',
@@ -78,7 +84,8 @@ class ClienteController extends Controller
             'nombre' => 'required|string|max:255',
             'tipo_persona' => 'required|string|max:50',
             'direccion' => 'nullable|string|max:255',
-            'departamento' => 'nullable|string|max:255',
+            'departamento' => 'required|string|max:255',
+            'municipio' => 'required|string|max:255',
             'numero_registro' => 'nullable|string|max:255',
             'nit' => 'nullable|string|max:255',
             'dui' => 'nullable|string|max:10',
