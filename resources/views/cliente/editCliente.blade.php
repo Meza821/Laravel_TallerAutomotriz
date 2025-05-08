@@ -45,11 +45,11 @@
                     class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300">
             </div>
 
+            <!-- Campo: Departamento del cliente -->
             <div class="mb-4">
-                <label for="departamento" class="block text-gray-700 font-semibold mb-2">Departamento del
-                    cliente</label>
-                <select type="text" name="departamento"
-                    class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300">
+                <label class="block text-gray-700 font-semibold mb-2">Departamento del cliente</label>
+                <select id="departamento" name="departamento"
+                    class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300" required>
                     <option value="">Seleccione un departamento</option>
                     <option value="San Salvador">San Salvador</option>
                     <option value="La Libertad">La Libertad</option>
@@ -67,7 +67,77 @@
                     <option value="La Union">La Union</option>
                 </select>
             </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Municipio del cliente</label>
+                <select id="municipio" name="municipio"
+                    class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300" required>
+                    <option value="">Seleccione un municipio</option>
+                </select>
+            </div>
 
+            <script>
+                const departamentoSelect = document.getElementById('departamento');
+                departamentoSelect.value = "{{ old('departamento', $cliente->departamento) }}";
+                const departamentoOld = "{{ old('departamento', $cliente->departamento) }}";
+
+                const municipioSelect = document.getElementById('municipio');
+                const municipio = "{{ old('municipio', $cliente->municipio) }}";
+                municipioSelect.value = "{{ old('municipio', $cliente->municipio) }}";
+                console.log(municipio);
+                const municipiosPorDepartamento = {
+                    "San Salvador": ["San Salvador", "Soyapango", "Mejicanos", "Apopa", "Ilopango", "San Marcos",
+                        "Ciudad Delgado"
+                    ],
+                    "La Libertad": ["Santa Tecla", "Antiguo Cuscatlán", "Colón", "Quezaltepeque", "Zaragoza", "Chiltiupán"],
+                    "Santa Ana": ["Santa Ana", "Chalchuapa", "Metapán", "Coatepeque", "Texistepeque"],
+                    "Sonsonate": ["Sonsonate", "Acajutla", "Nahuizalco", "Izalco", "Juayúa"],
+                    "Ahuachapan": ["Ahuachapán", "Atiquizaya", "Apaneca", "Tacuba", "San Francisco Menéndez"],
+                    "Cabañas": ["Sensuntepeque", "Victoria", "Ilobasco", "Guacotecti"],
+                    "Chalatenango": ["Chalatenango", "La Palma", "Dulce Nombre de María", "San Ignacio"],
+                    "Cuscatlan": ["Cojutepeque", "Suchitoto", "San Ramón", "San Cristóbal"],
+                    "La Paz": ["Zacatecoluca", "San Luis Talpa", "San Pedro Masahuat", "Olocuilta"],
+                    "San Vicente": ["San Vicente", "Tecoluca", "Apastepeque", "San Cayetano Istepeque"],
+                    "Usulutan": ["Usulután", "Jiquilisco", "Santa Elena", "Puerto El Triunfo"],
+                    "San Miguel": ["San Miguel", "Chinameca", "Ciudad Barrios", "San Rafael Oriente"],
+                    "Morazan": ["San Francisco Gotera", "Joateca", "Arambala", "Perquín"],
+                    "La Union": ["La Unión", "Santa Rosa de Lima", "Conchagua", "El Carmen"]
+                };
+
+
+
+                    document.getElementById('departamento').addEventListener('change', function() {
+                        const departamento = this.value;
+                        municipioSelect.innerHTML = '<option value="">Seleccione un Municipio</option>';
+
+                        if (municipiosPorDepartamento[departamento]) {
+                            municipiosPorDepartamento[departamento].forEach(function(municipio) {
+                                const option = document.createElement('option');
+                                option.value = municipio;
+                                option.textContent = municipio;
+                                municipioSelect.appendChild(option);
+                            });
+                        }
+                    });
+
+                // Preseleccionar el municipio basado en el valor antiguo
+                if (municipiosPorDepartamento[departamentoSelect.value]) {
+
+                    const optionMunicipio = "{{ old('municipio', $cliente->municipio) }}";
+                    municipioSelect.innerHTML = '<option value="">Seleccione un Municipio</option>';
+
+                    municipiosPorDepartamento[departamentoSelect.value].forEach(function(municipio) {
+                        const option = document.createElement('option');
+                        option.value = municipio;
+                        option.textContent = municipio;
+                        if (municipio === optionMunicipio) {
+                            option.selected = true;
+                        }
+                        municipioSelect.appendChild(option);
+                    });
+                }
+
+
+            </script>
             <div class="mb-4">
                 <label for="telefono" class="block text-gray-700 font-semibold mb-2">Teléfono</label>
                 <input type="text" name="telefono" value="{{ old('telefono', $cliente->telefono) }}"

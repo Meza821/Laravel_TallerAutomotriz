@@ -17,6 +17,7 @@ class Clientes extends Model
         'nombre',
         'tipo_persona',
         'direccion',
+        'municipio',
         'departamento',
         'numero_registro',
         'nit',

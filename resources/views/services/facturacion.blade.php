@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Facturar
+            Modulo de facturación 
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
@@ -23,7 +23,8 @@
                         <i class="fa-regular fa-address-card mr-1"></i> Datos del Cliente
                     </div>
 
-                    <form class="space-y-3">
+                    <form class="space-y-3" method="POST" action="{{ route('factura.generar') }}">
+                    @csrf
 
                         <!-- input para el número de documento -->
                         <div class="flex items-center mb-4 space-x-4">
@@ -49,7 +50,11 @@
                         <button class="bg-red-500 text-white px-2 py-1 rounded btn-eliminar"
                             name="btnEliminarDui">Eliminar</button>
 
-
+                        <!-- Fecha de emisión -->
+                        <div>
+                            <label class="text-sm block mb-1">Fecha de Emisión</label>
+                            <input type="date" class="form-input w-full text-sm" name="fechaEmision" disabled value="{{ date('Y-m-d') }}">
+                        </div>
                         <div>
                             <label class="text-sm block mb-1">Nombre completo</label>
                             <p class="form-input w-full text-sm bg-gray-100 cursor-not-allowed" id="nombreCliente" name="nombreCliente"></p>
@@ -77,13 +82,20 @@
                             <p class="form-input w-full text-sm bg-gray-100 cursor-not-allowed" id="departamentoCliente" name="departamentoCliente"></p>
                         </div>
                         <div>
-                            <label class="text-sm block mb-1">Condición de Pago</label>
+                            <label class="text-sm block mb-1">Municipio</label>
+                            <p class="form-input w-full text-sm bg-gray-100 cursor-not-allowed" id="municipioCliente" name="municipioCliente"></p>
+                        </div>
+                        <!-- tipo de documento tributario-->
+                        <div>
+                            <label class="text-sm block mb-1">Tipo de Documento</label>
                             <select class="form-select w-full text-sm">
-                                <option selected disabled>Selecciona una condición de pago</option>
-                                <option>Contado</option>
-                                <option>Crédito</option>
+                                <option selected>Factura</option>
+                                <option name="tipoPago" value="contado">Contado</option>
+                                <option name="tipoPago" value="credito">Crédito</option>
                             </select>
                         </div>
+
+
                     </form>
                 </div>
             </div>
@@ -289,7 +301,7 @@
                                 data.forEach(function(item) {
                                     listaDui.append(
                                         `<li class="p-2 hover:bg-gray-100 cursor-pointer" data-id="${item.id}" data-nombre="${item.nombre}" data-email="${item.email}"
-                                        data-direccion="${item.direccion}" data-telefono="${item.telefono}" data-dui="${item.dui}">${item.dui}</li>`
+                                        data-direccion="${item.direccion}" data-departamento="${item.departamento}" data-municipio="${item.municipio}" data-telefono="${item.telefono}" data-dui="${item.dui}">${item.dui}</li>`
                                     );
                                 });
                             }
@@ -307,6 +319,8 @@
             const id = $(this).data('id');
             const correo = $(this).data('email');
             const direccion = $(this).data('direccion');
+            const departamento = $(this).data('departamento');
+            const municipio = $(this).data('municipio');
             const telefono = $(this).data('telefono');
             const dui = $(this).data('dui');
 
@@ -315,7 +329,8 @@
             $('#correoCliente').text(correo);
             $('#direccionCliente').text(direccion);
             $('#telefonoCliente').text(telefono);
-            $('#departamentoCliente').text(dui);
+            $('#departamentoCliente').text(departamento);
+            $('#municipioCliente').text(municipio);
             $('#documentoidentidad').val(dui);
             $('#listaDui').addClass('hidden');
 
@@ -329,6 +344,7 @@
             $('#direccionCliente').text('');
             $('#telefonoCliente').text('');
             $('#departamentoCliente').text('');
+            $('#municipioCliente').text('');
         });
         // Ocultar la lista si se hace clic fuera
         $(document).on('click', function(e) {
@@ -350,6 +366,7 @@
                 $('#direccionCliente').text('');
                 $('#telefonoCliente').text('');
                 $('#departamentoCliente').text('');
+                $('#municipioCliente').text('');
                 $('#nombreEmpresa').text('');
                 $('input[name="tipoDocumento"]').prop('checked', false);
                 $('select.form-select').prop('selectedIndex', 0);
@@ -365,17 +382,22 @@
                 $('#total').text('');
             });
 
-            // Botón Procesar
-            $('button[name="btnProcesar"]').click(function() {
-                // Validar que ningún campo esté vacío
-                if ($('#documentoidentidad').val().trim() === '' || $('#nombreCliente').text().trim() === '' ||
-                    $('#correoCliente').text().trim() === '' || $('#direccionCliente').text().trim() === '' ||
-                    $('#telefonoCliente').text().trim() === '' || $('#departamentoCliente').text().trim() === '' ||
-                    $('#nombreEmpresa').text().trim() === '') {
-                    alert('Por favor, complete todos los campos antes de procesar.');
-                    return;
-                }
+            function camposCompletos() {
+    return $('#documentoidentidad').val().trim() !== '' &&
+        $('#nombreCliente').text().trim() !== '' &&
+        $('#correoCliente').text().trim() !== '' &&
+        $('#direccionCliente').text().trim() !== '' &&
+        $('#municipioCliente').text().trim() !== '' &&
+        $('#telefonoCliente').text().trim() !== '' &&
+        $('#departamentoCliente').text().trim() !== '' &&
+        $('#nombreEmpresa').text().trim() !== '';
+}
 
+$('button[name="btnProcesar"]').click(function () {
+    if (!camposCompletos()) {
+        alert('Por favor, complete todos los campos antes de procesar.');
+        return;
+    }
                 // Validar que haya al menos un servicio en la tabla
                 if ($('#tablaServicios tbody tr').length === 0) {
                     alert('Por favor, agregue al menos un servicio antes de procesar.');
