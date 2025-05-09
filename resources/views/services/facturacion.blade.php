@@ -88,6 +88,7 @@
                         <!-- tipo de documento tributario-->
                         <div>
                             <label class="text-sm block mb-1">Tipo de Documento</label>
+<<<<<<< HEAD
                             <select class="form-select w-full text-sm">
                                 <option selected>Factura</option>
                                 <option name="tipoPago" value="contado">Contado</option>
@@ -96,6 +97,22 @@
                         </div>
 
 
+=======
+                            <select class="form-select w-full text-sm">
+                                <option selected>Factura</option>
+                                <option disabled>Nota de Crédito</option>
+                                <option disabled>Nota de Débito</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm block mb-1">Condición de Pago</label>
+                            <select class="form-select w-full text-sm">
+                                <option selected>Contado</option>
+                                <option>Crédito</option>
+                            </select>
+                        </div>
+
+>>>>>>> 17801d48358668c09034a6ad288470bc95088b38
                     </form>
                 </div>
             </div>

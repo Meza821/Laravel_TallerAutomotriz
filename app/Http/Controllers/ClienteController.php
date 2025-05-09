@@ -13,8 +13,13 @@ class ClienteController extends Controller
      */// Obtener todos los clientes
     public function index()
     {
+        foreach ($clientes as &$cliente) {
+          $cliente['departamento_nombre'] = collect($departamentos)->firstWhere('codigo', $cliente['codigo_departamento'])['nombre'] ?? 'Departamento desconocido';
+          $cliente['municipio_nombre'] = collect($municipios)->firstWhere('codigo', $cliente['codigo_municipio'])['nombre'] ?? 'Municipio desconocido';
+        }
         $clientes = Clientes::orderBy('id', 'desc')->paginate(10);
         return view('cliente.indexCliente', compact('clientes'));
+
     }
 
     /**

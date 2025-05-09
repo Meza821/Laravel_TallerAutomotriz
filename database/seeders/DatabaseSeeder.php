@@ -14,24 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
 
-       
-
-        $Cliente = new Clientes();
-        $Cliente->nombre = 'David Vasquez';
-        $Cliente->tipo_persona = 'narutal';
-        $Cliente->direccion = 'San Salvador';
-        $Cliente->departamento = 'San Salvador';
-        $Cliente->municipio = 'San Salvador';
-        $Cliente->numero_registro = '0';
-        $Cliente->dui = '056357798';
-        $Cliente->nit = '06143011971843';
-        $Cliente->giro = 'Venta de motocicletas';
-        $Cliente->telefono = '78543210';
-        $Cliente->email = 'david@gmai.com';
-        $Cliente->created_at = now();
-        $Cliente->updated_at = now();
-        $Cliente->save();
+            // Seeder para Departamentos, distritos, usuarios y clientes.
+            DepartamentosSeeder::class,
+            DistritosSeeder::class,
+            UserSeeder::class,
+            ClientSeeder::class
+        ]);
+      
     }
 }

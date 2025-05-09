@@ -101,4 +101,8 @@
             {{ $clientes->links() }}
         </div>
     </div>
+    <script>
+
+    </script>
+        // Aquí puedes agregar cualquier script adicional que necesites
 </x-app-layout>
