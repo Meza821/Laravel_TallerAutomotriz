@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('departamentos', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo', 2)->unique();
+            $table->string('codigo', 2)->unique(); // ← Ahora es único
             $table->string('nombre', 50);
             $table->timestamps();
         });
