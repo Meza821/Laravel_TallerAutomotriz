@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Facturar
+            Modulo de facturación 
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
@@ -23,7 +23,8 @@
                         <i class="fa-regular fa-address-card mr-1"></i> Datos del Cliente
                     </div>
 
-                    <form class="space-y-3">
+                    <form class="space-y-3" method="POST" action="{{ route('factura.generar') }}">
+                    @csrf
 
                         <!-- input para el número de documento -->
                         <div class="flex items-center mb-4 space-x-4">
@@ -87,6 +88,16 @@
                         <!-- tipo de documento tributario-->
                         <div>
                             <label class="text-sm block mb-1">Tipo de Documento</label>
+<<<<<<< HEAD
+                            <select class="form-select w-full text-sm">
+                                <option selected>Factura</option>
+                                <option name="tipoPago" value="contado">Contado</option>
+                                <option name="tipoPago" value="credito">Crédito</option>
+                            </select>
+                        </div>
+
+
+=======
                             <select class="form-select w-full text-sm">
                                 <option selected>Factura</option>
                                 <option disabled>Nota de Crédito</option>
@@ -101,6 +112,7 @@
                             </select>
                         </div>
 
+>>>>>>> 17801d48358668c09034a6ad288470bc95088b38
                     </form>
                 </div>
             </div>
@@ -387,18 +399,22 @@
                 $('#total').text('');
             });
 
-            // Botón Procesar
-            $('button[name="btnProcesar"]').click(function() {
-                // Validar que ningún campo esté vacío
-                if ($('#documentoidentidad').val().trim() === '' || $('#nombreCliente').text().trim() === '' ||
-                    $('#correoCliente').text().trim() === '' || $('#direccionCliente').text().trim() === '' ||
-                    $('#municipioCliente').text().trim() === '' ||
-                    $('#telefonoCliente').text().trim() === '' || $('#departamentoCliente').text().trim() === '' ||
-                    $('#nombreEmpresa').text().trim() === '') {
-                    alert('Por favor, complete todos los campos antes de procesar.');
-                    return;
-                }
+            function camposCompletos() {
+    return $('#documentoidentidad').val().trim() !== '' &&
+        $('#nombreCliente').text().trim() !== '' &&
+        $('#correoCliente').text().trim() !== '' &&
+        $('#direccionCliente').text().trim() !== '' &&
+        $('#municipioCliente').text().trim() !== '' &&
+        $('#telefonoCliente').text().trim() !== '' &&
+        $('#departamentoCliente').text().trim() !== '' &&
+        $('#nombreEmpresa').text().trim() !== '';
+}
 
+$('button[name="btnProcesar"]').click(function () {
+    if (!camposCompletos()) {
+        alert('Por favor, complete todos los campos antes de procesar.');
+        return;
+    }
                 // Validar que haya al menos un servicio en la tabla
                 if ($('#tablaServicios tbody tr').length === 0) {
                     alert('Por favor, agregue al menos un servicio antes de procesar.');
