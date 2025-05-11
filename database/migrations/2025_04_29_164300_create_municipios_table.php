@@ -21,6 +21,7 @@ return new class extends Migration
              $table->foreign('cod_departamento')->references('codigo')->on('departamentos')
              ->onDelete('cascade'); // Si un departamento se elimina, también se elimina el distrito relacionado
 
+             
             $table->timestamps();
         });
 

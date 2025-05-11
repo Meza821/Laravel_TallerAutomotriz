@@ -12,6 +12,7 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
+        
         //Seeder para crear algunos clientes de prueba
         DB::table('clientes') ->insert([
             
