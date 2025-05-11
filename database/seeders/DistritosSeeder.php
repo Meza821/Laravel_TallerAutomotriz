@@ -210,6 +210,7 @@ class DistritosSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            
             // Santa Ana Norte
             [
                 'nombre_distrito' => 'Masahuat',
