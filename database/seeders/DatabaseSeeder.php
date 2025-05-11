@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Clientes;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,18 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-
-
         $this->call([
-            DepartamentosSeeder::class,
-            DistritosSeeder::class
-            // Add other seeders here
+
+            // Seeder para Departamentos, distritos, usuarios y clientes.
+            //DepartamentosSeeder::class
+            //DistritosSeeder::class
+            ClientSeeder::class
         ]);
-        // // Create a default user
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+
     }
 }

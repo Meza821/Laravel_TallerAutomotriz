@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\BusquedasController;
-
+use App\Http\Controllers\FacturaController;
 Route::resource('services', ServiceController::class);
 
 Route::get('/', function () {
@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-
-
+// Ruta para enviar la factura
+Route::post('/factura', [FacturaController::class, 'generarFactura'])->name('factura.generar');
 
 require __DIR__ . '/auth.php';

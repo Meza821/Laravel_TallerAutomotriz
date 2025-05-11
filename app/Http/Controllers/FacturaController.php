@@ -14,6 +14,15 @@ class FacturaController extends Controller
         //
     }
 
+    public function generarFactura(Request $request)
+{
+    // Devuelve el JSON recibido para pruebas
+    return response()->json([
+        'mensaje' => 'Datos recibidos correctamente',
+        'data' => $request->all()
+    ]);
+}
+
     /**
      * Show the form for creating a new resource.
      */
