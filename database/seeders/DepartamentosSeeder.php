@@ -30,5 +30,6 @@ class DepartamentosSeeder extends Seeder
             ['codigo' => '13', 'nombre' => 'Morazán', 'created_at' => now(), 'updated_at' => now()],
             ['codigo' => '14', 'nombre' => 'La Unión', 'created_at' => now(), 'updated_at' => now()],
         ]);
+        
     }
 }
