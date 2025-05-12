@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Clientes;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\UpdateServiceRequest;
+use Illuminate\Support\Facades\DB;
+use App\Models\Departamento;
+use App\Models\Distrito;
 
 class ClienteController extends Controller
 {
@@ -22,12 +26,16 @@ class ClienteController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    public function getDistritos($departamentoId)
+    {
+        $distritos = Distrito::where('cod_departamento', $departamentoId)->get();
+        return response()->json($distritos);
+    }
     public function create()
     {
-        return view('cliente.createCliente');
+        $departamentos = Departamento::all();
+        return view('cliente.createCliente', compact('departamentos'));
     }
 
     /**

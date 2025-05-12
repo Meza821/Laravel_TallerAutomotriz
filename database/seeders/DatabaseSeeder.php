@@ -18,9 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
 
             // Seeder para Departamentos, distritos, usuarios y clientes.
-            DepartamentosSeeder::class,
-            DistritosSeeder::class,
-            ClientSeeder::class
+            // DepartamentosSeeder::class,
+            // DistritosSeeder::class,
+            // ClientSeeder::class
+            UserSeeder::class
         ]);
 
     }

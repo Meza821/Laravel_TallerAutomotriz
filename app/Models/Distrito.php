@@ -13,17 +13,13 @@ class Distrito extends Model
         'nombre_distrito',
         'codigo_municipio',
         'nombre_municipio_oficial',
-        'departamento_id',
+        'cod_departamento',
     ];
 
-
     public function departamento()
-    {
-        return $this->belongsTo(Departamento::class);
-    }
+{
+    return $this->belongsTo(Departamento::class, 'cod_departamento', 'codigo');
 
-    public function clientes()
-    {
-        return $this->hasMany(Clientes::class);
-    }
+}
+
 }

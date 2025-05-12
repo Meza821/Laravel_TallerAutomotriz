@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Modulo de facturación 
+            Modulo de facturación
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
@@ -88,16 +88,6 @@
                         <!-- tipo de documento tributario-->
                         <div>
                             <label class="text-sm block mb-1">Tipo de Documento</label>
-<<<<<<< HEAD
-                            <select class="form-select w-full text-sm">
-                                <option selected>Factura</option>
-                                <option name="tipoPago" value="contado">Contado</option>
-                                <option name="tipoPago" value="credito">Crédito</option>
-                            </select>
-                        </div>
-
-
-=======
                             <select class="form-select w-full text-sm">
                                 <option selected>Factura</option>
                                 <option disabled>Nota de Crédito</option>
@@ -112,7 +102,6 @@
                             </select>
                         </div>
 
->>>>>>> 17801d48358668c09034a6ad288470bc95088b38
                     </form>
                 </div>
             </div>
