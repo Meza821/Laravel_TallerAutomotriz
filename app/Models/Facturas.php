@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Factura_Detalles;
+
 
 class Facturas extends Model
 {
@@ -26,9 +28,10 @@ class Facturas extends Model
         return $this->belongsTo(Clientes::class, 'cliente_id');
 
     }
-
     public function detalles()
     {
-        return $this->hasMany(Factura_Detalles::class, 'factura_id');
+        return $this->hasMany(Factura_Detalles::class);
     }
+
+
 }

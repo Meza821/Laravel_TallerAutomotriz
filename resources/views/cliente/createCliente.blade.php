@@ -61,7 +61,7 @@
             <!-- Campo: distrito del cliente -->
             <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">Distrito del cliente</label>
-                <select id="distrito" name="distrito_id"
+                <select id="distrito" name="municipio"
                     class="w-full p-3 border border-gray-300 rounded focus:ring focus:ring-blue-300" required>
                     <option value="">Seleccione un distrito</option>
                 </select>

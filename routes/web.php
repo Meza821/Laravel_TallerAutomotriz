@@ -34,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 //Rutas para facturacion
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/facturacion', [ServiceController::class, 'index'])->name('facturacion.blade');
+    Route::get('/factura/json/{id}', [FacturaController::class, 'generarJsonFactura']);
+
 
 });
 Route::get('/buscar-servicio', [BusquedasController::class, 'buscarServicio'])->name('buscar.servicio');
