@@ -33,7 +33,7 @@ class Clientes extends Model
     ];
             public function distrito()
         {
-            return $this->belongsTo(Distrito::class);
+            return $this->belongsTo(Distrito::class, 'municipio', 'codigo_municipio');
         }
 
 

@@ -37,5 +37,7 @@ class BusquedasController extends Controller
 
          return response()->json($resultados);
    }
+
+
 }
 

@@ -14,12 +14,11 @@ return new class extends Migration {
             // Crea el campo 'id', que es autoincrementable y sirve como clave primaria
             $table->id();
 
-            // Relación con la tabla 'facturas': cada línea de factura se vincula con una factura principal.
-            // 'factura_id' será la clave foránea que referencia al 'id' de la tabla 'facturas'.
-            $table->unsignedBigInteger('factura_id');
-            // Relación de clave foránea: Esto crea una relación entre 'factura_id' y la columna 'id' de 'facturas'.
-            $table->foreign('factura_id')->references('id')->on('facturas')->onDelete('cascade');
+            $table->unsignedBigInteger('idFactura'); // id de la factura vinculada a factura_detalles
+             $table->foreign('idFactura')->references('id')->on('facturas');
 
+            // Código del producto o servicio (máximo 50 caracteres)
+            $table->integer('idProducto')->nullable(); // id del producto o servicio (nullable)
             // Cantidad del producto o servicio
             $table->integer('cantidad')->default(1); // Si no se especifica la cantidad, será 1.
 
@@ -34,6 +33,7 @@ return new class extends Migration {
             $table->decimal('venta_exenta', 10, 2)->default(0); // Ventas exentas de IVA
             $table->decimal('venta_gravada', 10, 2)->default(0); // Ventas gravadas con IVA
 
+            $table->decimal('total', 10, 2)->default(0); // Total por producto o servicio ejemplo si llevan 1 de 100$ son 100$ y si llevan 2 de 100$ son 200$
             // Timestamps para registrar 'created_at' y 'updated_at'
             $table->timestamps();
         });

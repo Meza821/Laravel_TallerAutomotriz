@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Factura_Detalles;
 
 class Service extends Model
 {
@@ -19,4 +20,9 @@ class Service extends Model
         'descripcion',
         'precio',
     ];
+
+     public function detallesFactura()
+    {
+        return $this->hasMany(Factura_Detalles::class, 'idServicio');
+    }
 }

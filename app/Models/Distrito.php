@@ -18,7 +18,7 @@ class Distrito extends Model
 
     public function departamento()
 {
-    return $this->belongsTo(Departamento::class, 'cod_departamento', 'codigo');
+   return $this->belongsTo(Departamento::class, 'cod_departamento', 'codigo');
 
 }
 

@@ -81,7 +81,9 @@ $(document).ready(function () {
             const id = $(this).data('id');
             var precio = $(this).data('precio');
             //guardar el valor del input servicio
-            $('#idServicio').val(id);
+
+            $('#idServicioValor').val(id);
+            console.log('Valor del input servicio:', id);
 
             // Agregar el servicio a la tabla
             $('#tablaServicios tbody').append(`
@@ -237,17 +239,50 @@ $(document).ready(function () {
 
         // Confirmar la acción de procesar
         if (confirm('¿Está seguro de que desea procesar esta factura?')) {
-            // Aquí puedes agregar la lógica para enviar los datos al servidor
+            let clienteId = $('#listaDui li').data('id') || $('#listaDui li:first').data('id'); // Recupera ID del cliente
+
+            // Construir array de servicios desde la tabla
+            let servicios = [];
+            $('#tablaServicios tbody tr').each(function () {
+                let id = $(this).find('td').eq(0).text(); // ID del servicio
+                let cantidad = $(this).find('input[type="number"]').val(); // cantidad
+                servicios.push({
+                    id: parseInt(id),
+                    cantidad: parseInt(cantidad)
+                });
+            });
+
+            // Enviar datos al backend
+            $.ajax({
+                url: '/factura/crear', // <-- AJUSTA esta ruta a la de tu backend Laravel
+                type: 'POST',
+                data: JSON.stringify({
+                    cliente_id: clienteId,
+                    servicios: servicios
+                }),
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Necesario si usas Laravel con protección CSRF
+                },
+                success: function (response) {
+                    alert('Factura procesada correctamente.');
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('Error al procesar la factura: ' + xhr.responseText);
+                }
+            });
+
             alert('Factura procesada con éxito.');
         }
 
         // Guardar el valor del input cliente
         let inputCliente = $('#documentoidentidad').val();
         // Guardar el valor del input servicio
-        let inputServicio = $('#idservicio').val();
+        let inputServicio = $('#idServicioValor').val();
 
-        console.log('Valor del input cliente:', inputCliente);
-        console.log('Valor del input servicio:', inputServicio);
+
     });
 
 

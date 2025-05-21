@@ -129,7 +129,7 @@
                         class="border p-2 w-full" autocomplete="off"
                         data-url-codigo="{{ route('buscar.servicio.codigo') }}"
                         data-url-nombre="{{ route('buscar.servicio') }}">
-                    <input type="hidden" id="idServicio" name="idServicio" value="">
+                    <input type="hidden" id="idServicioValor" name="idServicioValor" >
                     <ul id="listaServicios"
                         class="absolute w-full bg-white border border-gray-300 mt-1 max-h-60 overflow-y-auto hidden z-50">
                     </ul>

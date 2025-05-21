@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Departamento extends Model
 {
-    public function departamento()
+    use HasFactory;
+    protected $fillable = [
+        'codigo',
+        'nombre',
+    ];
+    public function distritos()
     {
-        return $this->belongsTo(Departamento::class);
+      return $this->hasMany(Distrito::class, 'cod_departamento', 'codigo');;
     }
 
 
