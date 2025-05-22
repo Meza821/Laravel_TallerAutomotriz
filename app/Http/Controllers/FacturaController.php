@@ -86,18 +86,17 @@ class FacturaController extends Controller
             $jsonData = [
                 'identificacion' => [
                     'version' => '3',
-                    'ambiente'  => '00',
+                    'ambiente' => '00',
                     'tipoDte' => '03',
                     'numeroControl' => '',
                     'codigoGeneracion' => $codigoGeneracion,
                     'tipoModelo' => '1',
-                    'tipOperacion' => '1',
+                    'tipoOperacion' => '1',
                     'tipoContingencia' => null,
                     'motivoContin' => null,
-                    'fechaEmi' => $factura->fechaGeneracion,
-                    'horaEmi' => $factura->horaGeneracion,
+                    'fecEmi' => $factura->fechaGeneracion,
+                    'horEmi' => $factura->horaGeneracion,
                     'tipoMoneda' => 'USD'
-
                 ],
                 'documentoRelacionado' => null,
                 'emisor' => [
@@ -109,7 +108,7 @@ class FacturaController extends Controller
                     'nombreComercial' => 'Taller de Motos',
                     'tipoEstablecimiento' => '01',
                     'direccion' => [
-                        'departamento'=>'06',
+                        'departamento' => '06',
                         'municipio' => '14',
                         'complemento' => ''
                     ],
@@ -125,8 +124,8 @@ class FacturaController extends Controller
                     'nombre' => $cliente->nombre,
                     'direccion' => [
                         'municipio' => $cliente->municipio,
-                    'departamento' => $cliente->departamento,
-                    'complemento' => ''
+                        'departamento' => $cliente->departamento,
+                        'complemento' => ''
                     ],
                     'telefono' => $cliente->telefono,
                     'correo' => $cliente->email,
@@ -134,23 +133,22 @@ class FacturaController extends Controller
                     'nit' => $cliente->nit,
                 ],
                 'cuerpoDocumento' => [
-                    'numItem' => 1,
-                    'tipoItem' => 2,
-                    'cantidad' => $cantidad,
-                    'codigo' => '',
-                    'descripcion' => '',
-                    'precioUni' => $precio,
-                    'montoDesc' => 0,
-                    'codTributo' => null,
-                    'ventaNoSuj' => 0,
-                    'ventaExenta' => 0,
-                    'ventaGravada' => 0,
-                    'tributos' => [
-                        '20'
-                    ],
-                    'psv' => 0.00,
-                    'noGravado' => 0.00,
-
+                    [
+                        'numItem' => 1,
+                        'tipoItem' => 2,
+                        'cantidad' => $cantidad,
+                        'codigo' => '',
+                        'descripcion' => '',
+                        'precioUni' => $precio,
+                        'montoDesc' => 0,
+                        'codTributo' => null,
+                        'ventaNoSuj' => 0,
+                        'ventaExenta' => 0,
+                        'ventaGravada' => $subtotal,
+                        'tributos' => ['20'],
+                        'psv' => 0.00,
+                        'noGravado' => 0.00
+                    ]
                 ],
                 'resumen' => [
                     'totalNoSuj' => 0,
@@ -163,20 +161,34 @@ class FacturaController extends Controller
                     'porcentajeDescuento' => 0,
                     'totalDescu' => 0,
                     'tributos' => [
-                        'codigo' => '',
-                        'descripcion' => '',
-                        'valor' => 0,
+                        [
+                            'codigo' => '20',
+                            'descripcion' => 'IVA',
+                            'valor' => $iva
+                        ]
                     ],
+                    'subTotal' => $subtotal,
+                    'ivaPerci1' => $iva,
+                    'ivaRete1' => 0,
+                    'reteRenta' => 0,
+                    'montoTotalOperacion' => $subtotal,
+                    'totalNoGravado' => 0,
+                    'totalPagar' => $subtotal + $iva,
+                    'totalLetras' => '', // puedes usar un helper para convertirlo a letras
+                    'saldoFavor' => 0,
+                    'condicionOperacion' => '1',
+                    'pagos' => null,
+                    'numPagoElectronico' => null
                 ],
-                'subTotal' => $subtotal,
-                'ivaPerci1' => $iva,
-                'ivaRete1' => 0,
-                'reteRenta' => 0,
-                'montoTotalOperacion' => $subtotal,
-                'totalNoGravado' => 0,
-                'totalPagar' => 0,
-                'totalLetras' => '',
-
+                'extension' => [
+                    'nombEntrega' => '',
+                    'docuEntrega' => '',
+                    'nombRecibe' => '',
+                    'docuRecibe' => '',
+                    'placaVehiculo' => '',
+                    'observaciones' => ''
+                ],
+                'apendice' => null
             ];
 
             $detalles = Factura_Detalles::where('idFactura', $factura->id)->get();
