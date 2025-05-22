@@ -85,41 +85,98 @@ class FacturaController extends Controller
             // Paso 3: Generar JSON
             $jsonData = [
                 'identificacion' => [
+                    'version' => '3',
+                    'ambiente'  => '00',
+                    'tipoDte' => '03',
+                    'numeroControl' => '',
                     'codigoGeneracion' => $codigoGeneracion,
                     'tipoModelo' => '1',
                     'tipOperacion' => '1',
                     'tipoContingencia' => null,
                     'motivoContin' => null,
-                    'tipoTransmision' => '1',
-                    'tipoDte' => '01',
-                    'numeroControl' => '',
-                    'fechaEmision' => $factura->fechaGeneracion . 'T' . $factura->horaGeneracion,
-                    'ambiente' => '02'
+                    'fechaEmi' => $factura->fechaGeneracion,
+                    'horaEmi' => $factura->horaGeneracion,
+                    'tipoMoneda' => 'USD'
+
                 ],
+                'documentoRelacionado' => null,
                 'emisor' => [
-                    'nombre' => 'Taller de Motos El Salvador',
                     'nit' => '0614-XXXXXX-101-1',
                     'nrc' => 'XXXXX',
-                    'direccion' => 'San Salvador',
+                    'nombre' => 'Taller de Motos El Salvador',
+                    'codActividad' => '123456',
+                    'descActividad' => 'Taller de Motos',
+                    'nombreComercial' => 'Taller de Motos',
+                    'tipoEstablecimiento' => '01',
+                    'direccion' => [
+                        'departamento'=>'06',
+                        'municipio' => '14',
+                        'complemento' => ''
+                    ],
                     'telefono' => '2222-3333',
+                    'correo' => '',
+                    'codEstable' => null,
+                    'codPuntoVenta' => null,
+                    'codEstableMH' => null,
+                    'codPuntoVentaMH' => null
                 ],
                 'receptor' => [
+                    'nrc' => $cliente->nrc,
                     'nombre' => $cliente->nombre,
-                    'direccion' => $cliente->direccion,
-                    'municipio' => $cliente->municipio,
+                    'direccion' => [
+                        'municipio' => $cliente->municipio,
                     'departamento' => $cliente->departamento,
-                    'nit' => $cliente->nit,
-                    'dui' => $cliente->dui,
-                    'condicion_pago' => $cliente->condicion_pago,
+                    'complemento' => ''
+                    ],
                     'telefono' => $cliente->telefono,
-                    'email' => $cliente->email,
+                    'correo' => $cliente->email,
+                    'nombreComercial' => $cliente->nombre,
+                    'nit' => $cliente->nit,
                 ],
-                'detalle' => [],
+                'cuerpoDocumento' => [
+                    'numItem' => 1,
+                    'tipoItem' => 2,
+                    'cantidad' => $cantidad,
+                    'codigo' => '',
+                    'descripcion' => '',
+                    'precioUni' => $precio,
+                    'montoDesc' => 0,
+                    'codTributo' => null,
+                    'ventaNoSuj' => 0,
+                    'ventaExenta' => 0,
+                    'ventaGravada' => 0,
+                    'tributos' => [
+                        '20'
+                    ],
+                    'psv' => 0.00,
+                    'noGravado' => 0.00,
+
+                ],
                 'resumen' => [
-                    'subTotalVentas' => round($subtotal, 2),
-                    'iva' => round($iva, 2),
-                    'totalPagar' => round($total, 2),
-                ]
+                    'totalNoSuj' => 0,
+                    'totalExenta' => 0,
+                    'totalGravada' => $subtotal,
+                    'subTotalVentas' => $subtotal,
+                    'descNoSuj' => 0,
+                    'descuExenta' => 0,
+                    'descuGravada' => 0,
+                    'porcentajeDescuento' => 0,
+                    'totalDescu' => 0,
+                    'tributos' => [
+                        'codigo' => '',
+                        'descripcion' => '',
+                        'valor' => 0,
+                    ],
+                ],
+                'subTotal' => $subtotal,
+                'ivaPerci1' => $iva,
+                'ivaRete1' => 0,
+                'reteRenta' => 0,
+                'montoTotalOperacion' => $subtotal,
+                'totalNoGravado' => 0,
+                'totalPagar' => 0,
+                'totalLetras' => '',
+
             ];
 
             $detalles = Factura_Detalles::where('idFactura', $factura->id)->get();
